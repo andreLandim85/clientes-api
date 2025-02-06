@@ -1,71 +1,79 @@
-# clientes-api
+# Estrutura de Pastas do Projeto
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Este projeto segue a arquitetura **MVC (Model-View-Controller)**, garantindo separação de responsabilidades e um código organizado e escalável.
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## 📂 Estrutura de Diretórios
 
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
-
-```shell script
-./mvnw quarkus:dev
+```
+├── src/main/java/com/empresa/api
+│   ├── controller/     # Controladores REST
+│   ├── model/          # Modelos/Entidades do domínio
+│   ├── repository/     # Acesso ao banco de dados
+│   ├── service/        # Regras de negócio
+│   ├── exception/      # Tratamento de erros e exceções
+│   └── Main.java       # Classe principal do Quarkus
+│
+├── src/test/java/com/empresa/api
+│   ├── controller/     # Testes dos controladores
+│   ├── service/        # Testes dos serviços
+│   ├── repository/     # Testes do repositório
+│
+├── src/main/resources/
+│   ├── application.properties  # Configurações do Quarkus
+│   └── import.sql              # Scripts iniciais para o banco
+│
+└── pom.xml                     # Configurações do Maven e dependências
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+## 🏗️ Explicação dos Componentes
 
-## Packaging and running the application
+### 📌 **Controller (`controller/`)
+- Camada responsável por expor os **endpoints da API**.
+- Recebe as requisições HTTP e encaminha para a **camada de serviço**.
+- Exemplo: `ClienteController.java`
 
-The application can be packaged using:
+### 📌 **Model (`model/`)
+- Define as **entidades** que representam os dados do domínio.
+- Mapeia tabelas do banco de dados usando **JPA e Hibernate**.
+- Exemplo: `Cliente.java`
 
-```shell script
-./mvnw package
+### 📌 **Repository (`repository/`)
+- Camada responsável por **acessar o banco de dados**.
+- Utiliza **Hibernate com Panache** para simplificar consultas.
+- Exemplo: `ClienteRepository.java`
+
+### 📌 **Service (`service/`)
+- Contém a **lógica de negócio** da aplicação.
+- Faz a ponte entre o **repositório** e o **controller**.
+- Exemplo: `ClienteService.java`
+
+### 📌 **Exception (`exception/`)
+- Gerencia **exceções personalizadas** e tratamento de erros.
+- Exemplo: `ServicoException.java`
+
+### 📌 **Main (`Main.java`)
+- Classe principal responsável por iniciar a aplicação Quarkus.
+
+---
+
+## 📌 **Sobre os Testes (`src/test/java/`)
+- **Testes de integração** para validar os endpoints da API.
+- **Testes unitários** para garantir o funcionamento dos serviços e repositórios.
+
+### Exemplo de teste com RestAssured:
+```java
+@Test
+public void testCriarCliente() {
+    given()
+        .contentType(ContentType.JSON)
+        .body(new Cliente("João", "joao@email.com", "11987654321"))
+        .when().post("/clientes")
+        .then()
+        .statusCode(201);
+}
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+---
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
-
-If you want to build an _über-jar_, execute the following command:
-
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-```
-
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
-
-## Creating a native executable
-
-You can create a native executable using:
-
-```shell script
-./mvnw package -Dnative
-```
-
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
-
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-```
-
-You can then execute your native executable with: `./target/clientes-api-1.0.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
-
-## Related Guides
-
-- JDBC Driver - H2 ([guide](https://quarkus.io/guides/datasource)): Connect to the H2 database via JDBC
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
-
-## Provided Code
-
-### Hibernate ORM
-
-Create your first JPA entity
-
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
+Essa estrutura garante **organização, reutilização e facilidade de manutenção** no desenvolvimento da API. 🚀
 
