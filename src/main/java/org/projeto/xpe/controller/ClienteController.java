@@ -57,5 +57,12 @@ public class ClienteController {
         boolean deletado = clienteService.deletar(id);
         return deletado ? Response.noContent().build() : Response.status(Response.Status.NOT_FOUND).build();
     }
+
+    @PUT
+    @Path("/{id}")
+    public Response atualizarCliente(@PathParam("id") Long id, Cliente clienteAtualizado) {
+        Cliente cliente = clienteService.atualizarCliente(id, clienteAtualizado);
+        return Response.ok(cliente).build();
+    }
 }
 

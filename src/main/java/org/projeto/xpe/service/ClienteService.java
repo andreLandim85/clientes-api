@@ -3,6 +3,8 @@ package org.projeto.xpe.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
+import org.projeto.xpe.exception.ServicoException;
 import org.projeto.xpe.model.Cliente;
 import org.projeto.xpe.repository.ClienteRepository;
 
@@ -39,5 +41,17 @@ public class ClienteService {
 
     public long contarClientes() {
         return clienteRepository.count();
+    }
+
+    public Cliente atualizarCliente(Long id, Cliente clienteAtualizado) {
+        Cliente clienteExistente = clienteRepository.findById(id);
+        if (clienteExistente == null) {
+            throw new ServicoException("CLIENTE_NAO_ENCONTRADO", "Cliente não encontrado", Response.Status.NOT_FOUND);
+        }
+        clienteExistente.nome = clienteAtualizado.nome;
+        clienteExistente.email = clienteAtualizado.email;
+        clienteExistente.celular = clienteAtualizado.celular;
+        clienteRepository.persist(clienteExistente);
+        return clienteExistente;
     }
 }

@@ -2,7 +2,7 @@
 
 Este projeto segue a arquitetura **MVC (Model-View-Controller)**, garantindo separação de responsabilidades e um código organizado e escalável.
 
-## 📂 Estrutura de Diretórios
+##  Estrutura de Diretórios
 
 ```
 ├── src/main/java/com/empresa/api
@@ -11,7 +11,6 @@ Este projeto segue a arquitetura **MVC (Model-View-Controller)**, garantindo sep
 │   ├── repository/     # Acesso ao banco de dados
 │   ├── service/        # Regras de negócio
 │   ├── exception/      # Tratamento de erros e exceções
-│   └── Main.java       # Classe principal do Quarkus
 │
 ├── src/test/java/com/empresa/api
 │   ├── controller/     # Testes dos controladores
@@ -25,38 +24,35 @@ Este projeto segue a arquitetura **MVC (Model-View-Controller)**, garantindo sep
 └── pom.xml                     # Configurações do Maven e dependências
 ```
 
-## 🏗️ Explicação dos Componentes
+##  Explicação dos Componentes
 
-### 📌 **Controller (`controller/`)
+###  **Controller (`controller/`)
 - Camada responsável por expor os **endpoints da API**.
 - Recebe as requisições HTTP e encaminha para a **camada de serviço**.
 - Exemplo: `ClienteController.java`
 
-### 📌 **Model (`model/`)
+###  **Model (`model/`)
 - Define as **entidades** que representam os dados do domínio.
 - Mapeia tabelas do banco de dados usando **JPA e Hibernate**.
 - Exemplo: `Cliente.java`
 
-### 📌 **Repository (`repository/`)
+###  **Repository (`repository/`)
 - Camada responsável por **acessar o banco de dados**.
 - Utiliza **Hibernate com Panache** para simplificar consultas.
 - Exemplo: `ClienteRepository.java`
 
-### 📌 **Service (`service/`)
+###  **Service (`service/`)
 - Contém a **lógica de negócio** da aplicação.
 - Faz a ponte entre o **repositório** e o **controller**.
 - Exemplo: `ClienteService.java`
 
-### 📌 **Exception (`exception/`)
+###  **Exception (`exception/`)
 - Gerencia **exceções personalizadas** e tratamento de erros.
 - Exemplo: `ServicoException.java`
 
-### 📌 **Main (`Main.java`)
-- Classe principal responsável por iniciar a aplicação Quarkus.
-
 ---
 
-## 📌 **Sobre os Testes (`src/test/java/`)
+##  **Sobre os Testes (`src/test/java/`)
 - **Testes de integração** para validar os endpoints da API.
 - **Testes unitários** para garantir o funcionamento dos serviços e repositórios.
 
@@ -74,6 +70,4 @@ public void testCriarCliente() {
 ```
 
 ---
-
-Essa estrutura garante **organização, reutilização e facilidade de manutenção** no desenvolvimento da API. 🚀
 

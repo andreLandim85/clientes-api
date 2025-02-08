@@ -9,3 +9,4 @@ public class Cliente extends PanacheEntity {
     public String email;
     public String celular;
 }
+
